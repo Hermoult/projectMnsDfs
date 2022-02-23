@@ -1,6 +1,6 @@
-body {
-    text-align: center;
-}
+@import 'margin.css';
+@import 'padding.css';
+@import 'positions.css';
 
 .navbar {
     display: flex;
@@ -10,13 +10,6 @@ body {
     height: 80px;
     border-bottom: 2px solid black;
     margin-bottom: 100px;
-}
-
-.filmContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
 }
 
 .filmBlock {
