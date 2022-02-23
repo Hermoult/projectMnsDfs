@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Films
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/navBar.css') }}">
+{% endblock %}
+
+
+{% block body %}
+	<div>Voici la liste des films disponible :</div>
+
+	{% if films|length == 0  %}
+		<div>
+			Pas de film disponible
+		</div>
+	{% endif %}
+	<div class="filmContainer">
+		{% for film in films %}
+			<div class="filmBlock">
+				<div>Titre :
+					{{ film.title }}</div>
+				<div>Réalisateur :
+					{{ film.realisator }}</div>
+				<div>Genre :
+					{{ film.genre }}</div>
+				<a href="{{ path('update_film', { 'id': film.id } ) }}">Editer</a>
+				<a href="{{ path('delete_film', { 'id': film.id } ) }}">Supprimer</a>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}

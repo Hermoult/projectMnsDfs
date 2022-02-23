@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\FilmRepository;
+use App\Repository\FilmsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=FilmRepository::class)
+ * @ORM\Entity(repositoryClass=FilmsRepository::class)
  */
 class Films
 {

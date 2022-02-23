@@ -1,0 +1,21 @@
+{% if notices.success %}
+    {% for notice in notices %}
+        {% for message in notice %}
+            <div id="alert-connexion" class="alert alert-success text-center" role="alert">{{ message }}</div>  
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+{% if notices.warning %}
+    {% for notice in notices %}
+        {% for message in notice %}
+            <div id="alert-connexion" class="alert alert-warning text-center" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+{% if notices.error %}
+    {% for notice in notices %}
+        {% for message in notice %}
+            <div id="alert-connexion" class="alert alert-danger text-center" role="alert">{{ message|raw }}</div>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
