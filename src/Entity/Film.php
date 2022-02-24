@@ -22,12 +22,13 @@ class Film
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message = "Le champ ne doit pas etre vide")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $realisator;
 
@@ -36,15 +37,6 @@ class Film
      */
     private $genre;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Session::class, mappedBy="film")
-     */
-    private $sessions;
-
-    public function __construct()
-    {
-        $this->sessions = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -83,36 +75,6 @@ class Film
     public function setGenre(string $genre): self
     {
         $this->genre = $genre;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Session>
-     */
-    public function getSessions(): Collection
-    {
-        return $this->sessions;
-    }
-
-    public function addSession(Session $session): self
-    {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions[] = $session;
-            $session->setFilm($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSession(Session $session): self
-    {
-        if ($this->sessions->removeElement($session)) {
-            // set the owning side to null (unless already changed)
-            if ($session->getFilm() === $this) {
-                $session->setFilm(null);
-            }
-        }
 
         return $this;
     }

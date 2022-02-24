@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class FilmController extends AbstractController
 {
@@ -15,13 +16,14 @@ class FilmController extends AbstractController
      * @Route("/createFilm", name="create_film")
      * @Route("/updateFilm/{id}", name="update_film")
      */
-    public function index(Film $film = null, Request $request, ManagerRegistry $doctrine, $id = null)
+    public function index(Film $film = null, Request $request, ManagerRegistry $doctrine, ValidatorInterface $validator)
     {
         $entityManager = $doctrine->getManager();
 
         if (!$film) {
             $film = new Film;
         }
+
 
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
@@ -35,9 +37,13 @@ class FilmController extends AbstractController
 
             return $this->redirectToRoute('listing');
         }
+
+        $errors = $validator->validate($film);
+
         return $this->render('film/form.html.twig', [
             'form' => $form->createView(),
-            'isEditor' => $film->getId()
+            'isEditor' => $film->getId(),
+            'errors' => $errors
         ]);
     }
 

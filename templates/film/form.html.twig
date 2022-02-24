@@ -34,6 +34,9 @@
 					{{ form_row(form.save, { 'label': 'Save' }) }}
 				{% endif %}
 			</div>
+			{% for error in errors %}
+				<li>{{ error.message }}</li>
+			{% endfor %}
 			{{ form_end(form) }}
 		</div>
 	</div>
