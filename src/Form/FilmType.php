@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Film;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,8 +16,10 @@ class FilmType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('realisator')
-            ->add('genre')
+            ->add('realisator', TextType::class)
+            ->add('genre', TextType::class)
+            ->add('duree', NumberType::class)
+            ->add('status', TextType::class)
             ->add("save", SubmitType::class);
     }
 

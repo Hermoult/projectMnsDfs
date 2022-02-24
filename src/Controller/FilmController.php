@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Film;
 use App\Form\FilmType;
+use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FilmController extends AbstractController
 {
@@ -30,8 +32,12 @@ class FilmController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $film = $form->getData();
+            if (!$film->getId()) {
+                $film->setCreatedAt(new DateTimeImmutable("now"));
+            }
+            $film->setUpdatedAt(new DateTime("now"));
 
+            $film = $form->getData();
             $entityManager->persist($film);
             $entityManager->flush();
 
@@ -43,7 +49,7 @@ class FilmController extends AbstractController
         return $this->render('film/form.html.twig', [
             'form' => $form->createView(),
             'isEditor' => $film->getId(),
-            'errors' => $errors
+            'error' => $errors
         ]);
     }
 

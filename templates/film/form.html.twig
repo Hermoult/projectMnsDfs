@@ -27,6 +27,12 @@
 			<div class="mb_10">
 				{{ form_row(form.genre, { 'label': 'Genre : ' }) }}
 			</div>
+			<div class="mb_10">
+				{{ form_row(form.duree, { 'label': 'Durée (en minutes) : ' }) }}
+			</div>
+			<div class="mb_10">
+				{{ form_row(form.status, { 'label': 'Statut : ' }) }}
+			</div>
 			<div class="mb_10 textAlign_center">
 				{% if (isEditor) %}
 					{{ form_row(form.save, { 'label': 'Edit' }) }}
@@ -34,9 +40,6 @@
 					{{ form_row(form.save, { 'label': 'Save' }) }}
 				{% endif %}
 			</div>
-			{% for error in errors %}
-				<li>{{ error.message }}</li>
-			{% endfor %}
 			{{ form_end(form) }}
 		</div>
 	</div>
