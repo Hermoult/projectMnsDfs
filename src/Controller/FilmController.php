@@ -33,9 +33,9 @@ class FilmController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             if (!$film->getId()) {
-                $film->setCreatedAt(new DateTimeImmutable("now"));
+                $film->setCreatedAt(new DateTimeImmutable());
             }
-            $film->setUpdatedAt(new DateTime("now"));
+            $film->setUpdatedAt(new DateTime());
 
             $film = $form->getData();
             $entityManager->persist($film);
@@ -55,12 +55,11 @@ class FilmController extends AbstractController
 
 
     /**
-     * @Route("/listing", name="listing") 
+     * @Route("/", name="listing") 
      */
     public function listing(ManagerRegistry $doctrine)
     {
         $films = $doctrine->getManager()->getRepository(Film::class)->findAll();
-
         return $this->render("film/listing.html.twig", ["films" => $films]);
     }
 

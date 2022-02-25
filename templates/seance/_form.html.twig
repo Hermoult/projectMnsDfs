@@ -1,4 +1,16 @@
- {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form) }}
+<div class="textAlign_center">
+	<div class="mb_10">
+		{{ form_row(form.dateDebut,{ 'label': 'Date de début : ' }) }}
+	</div>
+	<div class="mb_10">
+		{{ form_row(form.lang,{ 'label': 'Langue : ' }) }}
+	</div>
+	<div class="mb_10">
+		{{ form_row(form.film,{'label' : 'Film : '}) }}
+	</div>
+</div>
+<div class="textAlign_center mt_20">
+	<button class="btn">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}

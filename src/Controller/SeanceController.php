@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Seance;
 use App\Form\SeanceType;
 use App\Repository\SeanceRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +38,8 @@ class SeanceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $seance->setUpdatedAt(new DateTime());
+            $seance->setCreatedAt(new DateTimeImmutable());
             $entityManager->persist($seance);
             $entityManager->flush();
 
@@ -67,6 +71,9 @@ class SeanceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $seance->setUpdatedAt(new DateTime());
+            $entityManager->persist($seance);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('seance_index', [], Response::HTTP_SEE_OTHER);
@@ -83,7 +90,7 @@ class SeanceController extends AbstractController
      */
     public function delete(Request $request, Seance $seance, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$seance->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $seance->getId(), $request->request->get('_token'))) {
             $entityManager->remove($seance);
             $entityManager->flush();
         }
